@@ -38,13 +38,14 @@ function Equation({left, right, current, onAnswerChanged}: EquationProps) : JSX.
 
   const answerStyle : React.CSSProperties = (correct ? {color: 'green'} : {color: 'red', textDecoration: 'line-through'})
 
-  return <li>
-    {left} x {right} = 
+  return <tr>
+    <td align='right'>{left} x {right}</td>
+    <td>=</td>
+    <td>
     {(current ? 
       <input 
         type="number"
         ref={inputRef}
-        disabled={!current}
         onChange={evt => setAnswer(parseInt(evt.target.value))}
         onKeyPress={event => {
           if (answer !== undefined && event.key === 'Enter') {
@@ -54,7 +55,8 @@ function Equation({left, right, current, onAnswerChanged}: EquationProps) : JSX.
       />
       : (answer ? <> <span style={answerStyle}>{answer}</span> {!correct ? left * right: ''}</>: '')
     )}
-  </li>
+    </td>
+  </tr>
 }
 
 function App() {
@@ -69,9 +71,11 @@ function App() {
     <div className="App">
       <header className="App-header">
         <p>Table is {tableNumber} </p>
-        <ul>
+        <table>
+          <tbody>
           {table.map((entry, index) => (<Equation key={entry} left={tableNumber} right={entry} current={index === currentEquation} onAnswerChanged={handleAnswerChanged}/>))}
-        </ul>
+          </tbody>
+        </table>
       </header>
     </div>
   );
