@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 
@@ -17,20 +17,49 @@ const table = shuffleArray(orderedEntries)
 type EquationProps = {
   left : number;
   right: number;
+  current: boolean;
+  onAnswerChanged: (answer: number) => void;
 }
 
-function Equation({left, right}: EquationProps) : JSX.Element {
-  return <li>{left} x {right} = {left*right}</li>
+function Equation({left, right, current, onAnswerChanged}: EquationProps) : JSX.Element {
+
+  const [answer, setAnswer] = useState<number | undefined>();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if(current) inputRef.current?.focus();
+  }, [inputRef, current])
+
+  return <li>
+    {left} x {right} = 
+    <input 
+      type="number"
+      ref={inputRef}
+      disabled={!current}
+      onChange={evt => setAnswer(parseInt(evt.target.value))}
+      onKeyPress={event => {
+        if (answer !== undefined && event.key === 'Enter') {
+          onAnswerChanged(answer);
+        }
+      }} 
+    />
+  </li>
 }
 
 function App() {
-  
+
+  const [currentEquation, setCurrentEquation] = useState(0);
+
+  const handleAnswerChanged = (answer: number) => {
+    setCurrentEquation(currentEquation + 1)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <p>Table is {tableNumber} </p>
         <ul>
-          {table.map(entry => (<Equation left={tableNumber} right={entry} />))}
+          {table.map((entry, index) => (<Equation key={entry} left={tableNumber} right={entry} current={index === currentEquation} onAnswerChanged={handleAnswerChanged}/>))}
         </ul>
       </header>
     </div>
