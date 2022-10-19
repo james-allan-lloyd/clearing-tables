@@ -30,19 +30,30 @@ function Equation({left, right, current, onAnswerChanged}: EquationProps) : JSX.
     if(current) inputRef.current?.focus();
   }, [inputRef, current])
 
+  var correct: boolean | undefined;
+  if(!current && answer)
+  {
+    correct = (answer === left * right);
+  }
+
+  const answerStyle : React.CSSProperties = (correct ? {color: 'green'} : {color: 'red', textDecoration: 'line-through'})
+
   return <li>
     {left} x {right} = 
-    <input 
-      type="number"
-      ref={inputRef}
-      disabled={!current}
-      onChange={evt => setAnswer(parseInt(evt.target.value))}
-      onKeyPress={event => {
-        if (answer !== undefined && event.key === 'Enter') {
-          onAnswerChanged(answer);
-        }
-      }} 
-    />
+    {(current ? 
+      <input 
+        type="number"
+        ref={inputRef}
+        disabled={!current}
+        onChange={evt => setAnswer(parseInt(evt.target.value))}
+        onKeyPress={event => {
+          if (answer !== undefined && event.key === 'Enter') {
+            onAnswerChanged(answer);
+          }
+        }} 
+      />
+      : (answer ? <> <span style={answerStyle}>{answer}</span> {!correct ? left * right: ''}</>: '')
+    )}
   </li>
 }
 
