@@ -52,4 +52,9 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - [ ] prevent non numbers from being entered
 - [ ] it advances to next equation when enter is pressed
 - [ ] it displays results at the end
-
+- [ ] retry on wrong answer
+- [ ] timer
+- [ ] better UI
+- [ ] best time for a given table
+- [ ] practice hardest tables
+- [ ] infinite mode with lives
