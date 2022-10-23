@@ -22,6 +22,14 @@ export function Equation({ left, right, current, onAnswerChanged }: EquationProp
     correct = (answer === left * right);
   }
 
+  const updateAnswer = (value: string) => {
+    const intValue = parseInt(value)
+    if(isNaN(intValue))
+      setAnswer(undefined)
+    else
+      setAnswer(intValue)
+  }
+
   const answerStyle: React.CSSProperties = (correct ? { color: 'green' } : { color: 'red', textDecoration: 'line-through' });
 
   return <tr>
@@ -32,13 +40,13 @@ export function Equation({ left, right, current, onAnswerChanged }: EquationProp
         <input
           type="number"
           ref={inputRef}
-          onChange={evt => setAnswer(parseInt(evt.target.value))}
+          onChange={evt => updateAnswer(evt.target.value)}
           onKeyPress={event => {
             if (answer !== undefined && event.key === 'Enter') {
               onAnswerChanged(answer);
             }
           }} />
-        : (answer ? <> <span style={answerStyle}>{answer}</span> {!correct ? left * right : ''}</> : '')
+        : (answer !== undefined ? <> <span style={answerStyle}>{answer}</span> {!correct ? left * right : ''}</> : '')
       )}
     </td>
   </tr>;
