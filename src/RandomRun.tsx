@@ -27,7 +27,7 @@ function Timer({ startTime }: { startTime: number }): JSX.Element {
 export function RandomRun({ tableNumber }: { tableNumber: number }): JSX.Element {
   const [table, setTable] = useState<number[]>([])
   const [currentEquation, setCurrentEquation] = useState(0)
-  const [startTime, setStartTime] = useState(Date.now())
+  const [startTime] = useState(Date.now())
   const [endTime, setEndTime] = useState<number>()
 
   const handleAnswerChanged = (answer: number) => {
