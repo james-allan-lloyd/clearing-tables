@@ -1,7 +1,4 @@
-import React, { useState } from 'react'
-
-const keypad_width = 3
-const keypad_height = 4
+import React from 'react'
 
 export function MainMenu({ onStart }: { onStart: (tableNumber: number) => void }): JSX.Element {
   return (
