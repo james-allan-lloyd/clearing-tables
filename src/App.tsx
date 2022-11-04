@@ -7,8 +7,8 @@ function App() {
   const [running, setRunning] = useState(false)
 
   return (
-    <div className='content flex flex-col items-center p-4'>
-      <main>
+    <div className='font-mono text-green-300 content flex flex-col items-center justify-center p-4 h-screen bg-gradient-to-b from-slate-700 to-black'>
+      <main className=''>
         {!running ? (
           <MainMenu
             onStart={(tableNumber) => {

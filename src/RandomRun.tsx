@@ -21,7 +21,7 @@ function Timer({ startTime }: { startTime: number }): JSX.Element {
     return () => clearTimeout(timer)
   }, [elapsedTime, startTime])
 
-  return <p>{format(elapsedTime)}</p>
+  return <span className='basis-1/2 text-right font-mono text-xl text-green-300'>{format(elapsedTime)}</span>
 }
 
 export function RandomRun({ tableNumber }: { tableNumber: number }): JSX.Element {
@@ -44,9 +44,18 @@ export function RandomRun({ tableNumber }: { tableNumber: number }): JSX.Element
 
   return (
     <>
-      <p>Table is {tableNumber} </p>
-      {endTime === undefined ? <Timer startTime={startTime} /> : ''}
-      <table>
+      <div className='flex flex-row w-full'>
+        <h1 className='font-medium font-mono text-xl text-green-300 basis-1/2'>Table is {tableNumber} </h1>
+        {endTime === undefined ? <Timer startTime={startTime} /> : ''}
+        {endTime !== undefined ? (
+          <div className='font-medium font-mono text-xl text-green-300 basis-1/2 text-right'>
+            {format(endTime - startTime)}
+          </div>
+        ) : (
+          ''
+        )}
+      </div>
+      <table className='table-fixed'>
         <tbody>
           {table.map((entry, index) => (
             <Equation
@@ -59,7 +68,6 @@ export function RandomRun({ tableNumber }: { tableNumber: number }): JSX.Element
           ))}
         </tbody>
       </table>
-      {endTime !== undefined ? <div>Done in {format(endTime - startTime)}</div> : ''}
     </>
   )
 }

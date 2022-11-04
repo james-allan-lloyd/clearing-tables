@@ -1,38 +1,24 @@
 import React, { useState } from 'react'
 
+const keypad_width = 3
+const keypad_height = 4
+
 export function MainMenu({ onStart }: { onStart: (tableNumber: number) => void }): JSX.Element {
-  const [tableNumber, setTableNumber] = useState(Math.floor(Math.random() * 10) + 1)
   return (
     <div>
-      <p>Table Clearer</p>
-      <form
-        onSubmit={(evt) => {
-          evt.preventDefault()
-          onStart(tableNumber)
-        }}
-      >
-        <table>
-          <tbody>
-            <tr>
-              <td>Table Number</td>
-              <td>
-                <input
-                  type='number'
-                  min={1}
-                  max={10}
-                  value={tableNumber}
-                  onChange={(e) => setTableNumber(parseInt(e.target.value))}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input type='submit' value='Start' />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
+      <h1 className='font-medium font-mono text-xl text-green-300'>Table Clearer</h1>
+      <div className='grid grid-cols-3 gap-4'>
+        {Array.from(Array(12), (e, i) => {
+          return (
+            <button
+              className='text-center text-black font-mono rounded bg-green-300 p-4'
+              onClick={() => onStart(i + 1)}
+            >
+              {i + 1}
+            </button>
+          )
+        })}
+      </div>
     </div>
   )
 }
