@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-// import logo from './logo.svg';
-import './App.css'
 import { MainMenu } from './MainMenu'
 import { RandomRun } from './RandomRun'
 
@@ -9,8 +7,8 @@ function App() {
   const [running, setRunning] = useState(false)
 
   return (
-    <div className='App'>
-      <header className='App-header'>
+    <div className='content flex flex-col items-center p-4'>
+      <main>
         {!running ? (
           <MainMenu
             onStart={(tableNumber) => {
@@ -24,7 +22,7 @@ function App() {
             <button onClick={() => setRunning(false)}>Back</button>
           </>
         )}
-      </header>
+      </main>
     </div>
   )
 }
