@@ -42,7 +42,7 @@ export function Equation({ left, right, current, onAnswerChanged }: EquationProp
             ref={inputRef}
             onChange={(evt) => updateAnswer(evt.target.value)}
             onKeyPress={(event) => {
-              if (answer !== undefined && event.key === 'Enter') {
+              if (answer !== undefined && event.key === 'Enter' && answer === left * right) {
                 onAnswerChanged(answer)
               }
             }}
